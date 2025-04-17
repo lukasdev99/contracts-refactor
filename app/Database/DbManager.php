@@ -36,6 +36,13 @@ class DbManager
         return $stmt;
     }
 
+    public function fetch(string $sql, array $params = []) 
+    {
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetch(DataBaseConnection::FETCH_ASSOC) ?? null;
+
+    }
+
     public function beginTransaction(): void
     {
         $this->pdo->beginTransaction();
