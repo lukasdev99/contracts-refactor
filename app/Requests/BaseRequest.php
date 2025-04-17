@@ -18,13 +18,11 @@ abstract class BaseRequest
 
     protected function getDataFromRequest(): array
     {
-        switch($_SERVER['REQUEST_METHOD']){
-            case 'GET':
-                return $_GET; break;
-            case 'POST':
-                return $_POST; break;
-            default: return []; break;
-        }
+        return match($_SERVER['REQUEST_METHOD']){
+            'GET' => $_GET,
+            'POST' => $_POST,
+            'default' => [],
+        };
     }
 
     abstract public function rules(): array; 
