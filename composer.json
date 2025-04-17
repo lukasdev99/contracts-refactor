@@ -1,0 +1,11 @@
+{
+    "name": "lukasdev99/contract-refactor",
+    "description": "Refactoring contract example code",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Lukasdev99\\ContractRefactor\\": "src/"
+        }
+    },
+    "require": {}
+}
