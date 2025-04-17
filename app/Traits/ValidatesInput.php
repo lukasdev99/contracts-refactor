@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait ValidatesInput
 {
-    protected array $data = [];
+    protected array $validationData = [];
     protected array $errors = [];
 
     protected function isEmpty(mixed $value): bool
@@ -24,11 +24,11 @@ trait ValidatesInput
 
     public function all(): array
     {
-        return $this->data;
+        return $this->validationData;
     }
 
     public function input(string $key, $default = null)
     {
-        return $this->data[$key] ?? $default;
+        return $this->validationData[$key] ?? $default;
     }
 }

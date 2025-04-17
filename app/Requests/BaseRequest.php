@@ -8,12 +8,12 @@ abstract class BaseRequest
 {
     use ValidatesInput;
 
-    protected array $data;
+    protected array $requestData;
     protected array $errors = [];
 
     public function __construct(array $data = [])
     {
-        $this->data = $data ?: $this->getDataFromRequest();
+        $this->requestData = $data ?: $this->getDataFromRequest();
     }
 
     protected function getDataFromRequest(): array
@@ -41,7 +41,7 @@ abstract class BaseRequest
 
     protected function validateField(string $field, array $rules): void
     {
-        $value = $this->data[$field] ?? null;
+        $value = $this->requestData[$field] ?? null;
         foreach($rules as $rule)
         {
             if($this->shouldSkipRule($value, $rule))
@@ -55,5 +55,14 @@ abstract class BaseRequest
     protected function shouldSkipRule(mixed $value, object $rule): bool
     {
         return $this->isEmpty($value) && !$rule instanceof \App\Validation\Rules\RequiredRule;
+    }
+
+    public function only(array $keys): array
+    {
+        return array_filter(
+            $this->requestData,
+            fn($key) => in_array($key, $keys),
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }
